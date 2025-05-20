@@ -20,7 +20,7 @@ public class InHouse implements showMenuItems{
 
             case 3:
                 PlayerManagement playerManagement = new PlayerManagement();
-                playerManagement.addPlayer();
+                playerManagement.showMenuItems();
                 playerManagement.showPlayers();
                 break;
 

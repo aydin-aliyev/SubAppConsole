@@ -1,7 +1,25 @@
 import java.sql.Connection;
 import java.util.*;
 
-public class PlayerManagement extends InHouse{
+public class PlayerManagement extends InHouse implements showMenuItems{
+
+    @Override
+    public void showMenuItems() {
+        System.out.println("1. Add player");
+        System.out.print("Choose the category: ");
+
+        int answer = scanner.nextInt();
+        scanner.nextLine();
+        switch (answer){
+            case 1:
+                addPlayer();
+            default:
+                System.out.println("Wrong");
+        }
+    }
+
+
+
     List<Player> playerList = new ArrayList<>();
     Scanner scanner = new Scanner(System.in);
 
@@ -67,5 +85,4 @@ public class PlayerManagement extends InHouse{
             }
         }
     }
-
 }
