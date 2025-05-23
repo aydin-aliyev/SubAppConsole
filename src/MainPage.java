@@ -1,17 +1,19 @@
 import com.sun.tools.javac.Main;
 
-public class MainPage implements Greeting {
+public class MainPage implements Line, Welcome{
     @Override
     public void welcome() {
-        System.out.println("Welcome to SUBMACHINE");
+        System.out.println("WELCOME TO SUBMACHINE");
     }
 
     // MAIN
     public static void main(String[] args) {
+        Welcome welcome = new MainPage();
+        welcome.welcome();
+
         //полиморфизм
-        Greeting greeting = new MainPage();
-        greeting.welcome();
-        greeting.line();
+        Line line = new MainPage();
+        line.line();
 
 
         //Показать категории
@@ -24,9 +26,14 @@ public class MainPage implements Greeting {
 }
 
 
-interface Greeting{
-    void welcome();
+interface Line{
+
     default void line(){
-        System.out.println("---------------------");
+        System.out.println("*********************");
+        System.out.println();
     }
+}
+
+interface Welcome{
+    public void welcome();
 }

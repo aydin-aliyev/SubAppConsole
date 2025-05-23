@@ -21,11 +21,10 @@ public class InHouse implements showMenuItems{
             case 3:
                 PlayerManagement playerManagement = new PlayerManagement();
                 playerManagement.showMenuItems();
-                playerManagement.showPlayers();
                 break;
 
             default:
-                System.out.println("Неправильно");
+                System.out.println("Wrong");
         }
     }
 }

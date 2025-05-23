@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Menu implements showMenuItems{
     public void showMenuItems(){
-        System.out.println("Меню");
+        System.out.println("| MENU |");
         System.out.print("1.Team🤼 | ");
         System.out.print("2.Schedule⌚ | ");
         System.out.print("3.News📰 | ");
@@ -13,7 +13,7 @@ public class Menu implements showMenuItems{
 
     void chooseCategory(){
 
-        System.out.println("Выбери категорию: ");
+        System.out.print("Choose a category: ");
 
         Scanner scanner = new Scanner(System.in);
         int choice = scanner.nextInt();
@@ -37,7 +37,7 @@ public class Menu implements showMenuItems{
                 inHouse.showMenuItems();
                 break;
             default:
-                System.out.println("Неверный выбор");
+                System.out.println("Wrong");
         }
     }
 }
