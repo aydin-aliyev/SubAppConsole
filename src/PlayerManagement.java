@@ -1,8 +1,8 @@
 import java.sql.Connection;
 import java.util.*;
 
-public class PlayerManagement <T> extends InHouse implements showMenuItems, Line{
-    T answer;
+public class PlayerManagement extends InHouse implements showMenuItems, Line {
+    String answer;
     Stack<Player> playerList = new Stack<>();
     Scanner scanner = new Scanner(System.in);
 
@@ -21,11 +21,13 @@ public class PlayerManagement <T> extends InHouse implements showMenuItems, Line
         line();
 
 
-        switch (answer){
+        switch (answer) {
             case 1:
                 addPlayer();
+                break;
             case 2:
                 deletePlayer();
+                break;
             case 3:
                 showPlayers();
                 break;
@@ -33,6 +35,7 @@ public class PlayerManagement <T> extends InHouse implements showMenuItems, Line
                 System.out.println("Wrong");
         }
     }
+
 
 
 
@@ -46,8 +49,10 @@ public class PlayerManagement <T> extends InHouse implements showMenuItems, Line
         while(playerIterator.hasNext()){
             Player player = playerIterator.next();
             System.out.println(player);
+            break;
         }
     }
+
 
 
     //ADD PLAYER
@@ -78,6 +83,7 @@ public class PlayerManagement <T> extends InHouse implements showMenuItems, Line
             System.out.println("Player was added");
 
 
+
             System.out.print("Do you want to add player (y/N)? ");
             String answer = scanner.nextLine();
 
@@ -88,6 +94,7 @@ public class PlayerManagement <T> extends InHouse implements showMenuItems, Line
                 case "N":
                     System.out.println("Exiting...");
                     showMenuItems();
+                    break;
                 default:
                     System.out.println("Wrong");
             }
@@ -117,14 +124,18 @@ public class PlayerManagement <T> extends InHouse implements showMenuItems, Line
 
 
                     // 2nd SWITCH
+                    // STACK SEARCH
                     switch(intAnswer){
                         case 1:
-                            System.out.print("Search Player by Name: ");
-                            String searchName = scanner.nextLine();
-                            playerList.search(searchName);
+                            showPlayers();
+                            System.out.print("Search by Name: ");
+                            var searchByName = scanner.nextLine();
+                            int search = playerList.search(searchByName);
+                            playerList.remove(search);
+
+                            break;
 
                         case 2:
-
                             showMenuItems();
                         default:
                             System.out.println("Wrong");
@@ -144,6 +155,7 @@ public class PlayerManagement <T> extends InHouse implements showMenuItems, Line
 
         System.out.print("Search by Name: ");
         String searchByName = scanner.nextLine();
-        playerList.search(searchByName);
+        int search = playerList.search(searchByName);
+        System.out.println(search);
     }
 }
