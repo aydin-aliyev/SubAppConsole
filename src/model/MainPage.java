@@ -1,4 +1,8 @@
 package model;
+import dao.impl.playerDAOImpl;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public class MainPage implements Line, Welcome{
     @Override
@@ -20,7 +24,6 @@ public class MainPage implements Line, Welcome{
         Menu menu = new Menu();
         menu.showMenuItems();
         menu.chooseCategory();
-
     }
 
 }

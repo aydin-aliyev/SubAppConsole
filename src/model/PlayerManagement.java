@@ -1,4 +1,6 @@
 package model;
+import dao.DatabaseConnection;
+import dao.impl.playerDAOImpl;
 
 import model.InHouse;
 import model.Line;
@@ -48,16 +50,11 @@ public class PlayerManagement extends InHouse implements showMenuItems, Line {
     // SHOW PLAYERS
     void showPlayers(){
 
+        playerDAOImpl playerDAO = new playerDAOImpl(DatabaseConnection.getConnection());
         System.out.println("| PLAYERS LIST |");
-
-        //Collection - Iterator Interface
-        Iterator<Player> playerIterator = playerList.iterator();
-        while(playerIterator.hasNext()){
-            Player player = playerIterator.next();
-            System.out.println(player);
-            break;
-        }
+        playerDAO.findAll();
     }
+
 
 
 

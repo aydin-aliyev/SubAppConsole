@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-//отдельныц класс для connection
+//отдельный класс для connection
 public class DatabaseConnection {
     //заранее присваиваем шаблонные значения, чтобы постоянно не писать каждый раз
     // ❓static и final что означает?
@@ -17,16 +17,14 @@ public class DatabaseConnection {
 
     // ❓внутри класса мы не можем выполнять try и catch почему?
     public static Connection getConnection(){
-        try(Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)){
-            
-            // взаимодействие с базой происходит с помощью Statement
-            Statement statement = connection.createStatement();
-
+        try{
+            return DriverManager.getConnection(URL, USER, PASSWORD);
         }
         catch(SQLException e){
             System.out.println("Connection failed");
+            return null;
         }
-        return getConnection();
+
     }
 
 

@@ -24,7 +24,7 @@ public class Player extends InHouse {
     @Override
     public String toString() {
         return "Player{" +
-                ", name='" + name + '\'' +
+                " name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", age=" + age +
                 ", belt='" + belt + '\'' +
