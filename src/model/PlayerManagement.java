@@ -1,4 +1,10 @@
-import java.sql.Connection;
+package model;
+
+import model.InHouse;
+import model.Line;
+import model.Player;
+import model.showMenuItems;
+
 import java.util.*;
 
 public class PlayerManagement extends InHouse implements showMenuItems, Line {
@@ -79,7 +85,7 @@ public class PlayerManagement extends InHouse implements showMenuItems, Line {
             scanner.nextLine(); // очищение буфера после nextInt
 
 
-            playerList.push(new Player(id, name, lastname, age, belt));
+            playerList.push(new Player(name, lastname, belt, age));
             System.out.println("Player was added");
 
 
@@ -94,7 +100,7 @@ public class PlayerManagement extends InHouse implements showMenuItems, Line {
                 case "N":
                     System.out.println("Exiting...");
                     showMenuItems();
-                    break;
+                    return;
                 default:
                     System.out.println("Wrong");
             }

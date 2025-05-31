@@ -1,6 +1,8 @@
+package model;
+
 import java.util.Scanner;
 
-public class InHouse implements showMenuItems{
+public class InHouse implements showMenuItems {
     @Override
     public void showMenuItems() {
         System.out.println("1. Announcement");

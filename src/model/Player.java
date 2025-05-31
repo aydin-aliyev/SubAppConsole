@@ -1,15 +1,20 @@
+package model;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Player extends InHouse {
-    int id;
     String name;
     String lastName;
     int age;
     String belt;
 
-    public Player(int id, String name, String lastName, int age, String belt) {
-        this.id = id;
+    public Player() {
+
+    }
+
+    public Player(String name, String lastName, String belt, int age) {
+
         this.name = name;
         this.lastName = lastName;
         this.age = age;
@@ -19,7 +24,6 @@ public class Player extends InHouse {
     @Override
     public String toString() {
         return "Player{" +
-                "id=" + id +
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", age=" + age +

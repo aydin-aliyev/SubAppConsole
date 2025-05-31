@@ -1,6 +1,6 @@
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+package model;
+
+import model.showPageInfo;
 
 public class GrapplingSession implements showPageInfo {
 

@@ -1,3 +1,5 @@
+package model;
+
 public class Schedule implements showPageInfo{
     @Override
     public void showInfo() {

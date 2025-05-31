@@ -1,4 +1,4 @@
-import com.sun.tools.javac.Main;
+package model;
 
 public class MainPage implements Line, Welcome{
     @Override

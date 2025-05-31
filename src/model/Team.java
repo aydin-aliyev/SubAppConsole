@@ -1,6 +1,10 @@
+package model;
+
+import model.showMenuItems;
+
 import java.util.Scanner;
 
-public class Team implements showMenuItems{
+public class Team implements showMenuItems {
     @Override
     public void showMenuItems() {
         Scanner scanner = new Scanner(System.in);
