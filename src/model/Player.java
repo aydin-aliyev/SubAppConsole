@@ -6,8 +6,8 @@ import java.util.List;
 public class Player extends InHouse {
     String name;
     String lastName;
-    int age;
     String belt;
+    int age;
 
     public Player() {
 
@@ -17,17 +17,49 @@ public class Player extends InHouse {
 
         this.name = name;
         this.lastName = lastName;
+        this.belt = belt;
         this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getBelt() {
+        return belt;
+    }
+
+    public void setBelt(String belt) {
         this.belt = belt;
     }
 
     @Override
     public String toString() {
         return "Player{" +
-                " name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", age=" + age +
                 ", belt='" + belt + '\'' +
+                ", age=" + age +
                 '}';
     }
 }

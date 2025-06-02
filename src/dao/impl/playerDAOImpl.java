@@ -3,6 +3,7 @@ package dao.impl;
 import dao.DatabaseConnection;
 import dao.playerDAO;
 import model.Player;
+import model.PlayerManagement;
 
 import java.awt.dnd.DropTarget;
 import java.net.URL;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class playerDAOImpl implements playerDAO {
+    PlayerManagement playerManagement;
     Connection connection;
 //конструктор с Connection чтобы
     public playerDAOImpl(Connection connection) {
@@ -59,8 +61,46 @@ public class playerDAOImpl implements playerDAO {
 
     @Override
     public Player save(Player player) throws SQLException {
-        return null;
+
+        String query = "INSERT INTO players (name, last_name, belt, age) VALUES(?,?,?,?)";
+
+        //prepared statement
+        try(PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setString(1, player.getName());
+            statement.setString(2, player.getLastName());
+            statement.setString(3, player.getBelt());
+            statement.setInt(4, player.getAge());
+
+
+            int rowsInserted = statement.executeUpdate();
+            if (rowsInserted > 0){
+                System.out.println(player.getName() + ", " + player.getLastName() + ", " + player.getBelt() + ", " + player.getAge() + "was added successfully");
+            }
+        }
+        catch (SQLException e){
+            System.out.println("Failed");
+            return null;
+        }
+        return player;
     }
+
+
+
+//            while (resultSet.next()){
+////                System.out.println(resultSet.getString(1) + " " + resultSet.getString(2) + " " + resultSet.getString(3) + " " + resultSet.getInt(4));
+//                // Беру значения из колонок
+//                String name = resultSet.getString(1);
+//                String lastName = resultSet.getString(2);
+//                String belt = resultSet.getString(3);
+//                int age = resultSet.getInt(4);
+//
+//                System.out.println(name + " was added successfully"); // Почему-то эту часть код не выводит
+//
+//            }
+
+
+
 
     @Override
     public void update(Player player) throws SQLException {

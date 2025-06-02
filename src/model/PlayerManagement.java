@@ -7,6 +7,7 @@ import model.Line;
 import model.Player;
 import model.showMenuItems;
 
+import java.sql.SQLException;
 import java.util.*;
 
 public class PlayerManagement extends InHouse implements showMenuItems, Line {
@@ -59,14 +60,13 @@ public class PlayerManagement extends InHouse implements showMenuItems, Line {
 
 
     //ADD PLAYER
-    void addPlayer() {
+    public void addPlayer() {
+
 
         while (true) {
             System.out.println("| ADD PLAYER |");
+            playerDAOImpl playerDAO = new playerDAOImpl(DatabaseConnection.getConnection());
 
-            System.out.print("Id: ");
-            int id = scanner.nextInt();
-            scanner.nextLine();
 
             System.out.print("Name: ");
             String name = scanner.nextLine();
@@ -82,9 +82,18 @@ public class PlayerManagement extends InHouse implements showMenuItems, Line {
             scanner.nextLine(); // очищение буфера после nextInt
 
 
-            playerList.push(new Player(name, lastname, belt, age));
-            System.out.println("Player was added");
+//            playerList.push(new Player(name, lastname, belt, age));
+//            System.out.println("Player was added");
+        try{
+            Player newPLayer = new Player(name, lastname, belt, age);
+            playerDAO.save(newPLayer);
+//            playerList.add(newPLayer); Логика неправильная, добавляешь в лист который еще не существует
 
+
+        }
+        catch (SQLException e){
+            System.out.println("Failed");
+        }
 
 
             System.out.print("Do you want to add player (y/N)? ");
