@@ -10,7 +10,7 @@ import model.showMenuItems;
 import java.sql.SQLException;
 import java.util.*;
 
-public class PlayerManagement extends InHouse implements showMenuItems, Line {
+public class PlayerManagement extends InHouse implements showMenuItems, Line, menuCRUD {
     String answer;
     Stack<Player> playerList = new Stack<>();
     Scanner scanner = new Scanner(System.in);
@@ -50,13 +50,18 @@ public class PlayerManagement extends InHouse implements showMenuItems, Line {
 
     // SHOW PLAYERS
     void showPlayers(){
-
+        //Connection
         playerDAOImpl playerDAO = new playerDAOImpl(DatabaseConnection.getConnection());
+
         System.out.println("| PLAYERS LIST |");
+
+        //DAO call
         playerDAO.findAll();
+
+        // return MENU
+        line();
+        menuCRUD();
     }
-
-
 
 
     //ADD PLAYER
@@ -117,49 +122,79 @@ public class PlayerManagement extends InHouse implements showMenuItems, Line {
 
     // DELETE PLAYER - Stack (LIFO)
     void deletePlayer(){
+        String yN;
         int intAnswer;
-        String strAnswer;
+
 
         System.out.println("| DELETE PLAYER |");
 
-        while(true){
-            System.out.print("Do you want to delete a player? (y/N)");
-            strAnswer = scanner.nextLine();
 
-            // 1st SWITCH
-            switch (strAnswer){
+        while (true){
+            System.out.println("Which player do you want to DELETE?");
+            System.out.print("ID of player: ");
+            intAnswer = scanner.nextInt();
+            scanner.nextLine();
+
+            try{
+                playerDAOImpl playerDAO = new playerDAOImpl(DatabaseConnection.getConnection());
+                playerDAO.deleteById(intAnswer);
+                System.out.println("Player with ID: " + intAnswer  + " was successfully deleted!");
+            }catch (SQLException e){
+                System.out.println("Error");
+            }
+            System.out.println("Do you want to delete a player? (y/N)");
+            yN = scanner.nextLine();
+            switch (yN){
                 case "y":
-                    System.out.println("1. Search player");
-                    System.out.println("2. Delete last value");
-                    System.out.print("Choose category: ");
+                    System.out.print("ID of player: ");
                     intAnswer = scanner.nextInt();
-
-
-                    // 2nd SWITCH
-                    // STACK SEARCH
-                    switch(intAnswer){
-                        case 1:
-                            showPlayers();
-                            System.out.print("Search by Name: ");
-                            var searchByName = scanner.nextLine();
-                            int search = playerList.search(searchByName);
-                            playerList.remove(search);
-
-                            break;
-
-                        case 2:
-                            showMenuItems();
-                        default:
-                            System.out.println("Wrong");
-                    }
-                    break;
+                    scanner.nextLine();
                 case "N":
-                    showMenuItems();
-                default:
-                    System.out.println("Error");
+                   menuCRUD();
 
             }
         }
+
+
+
+//        while(true){
+//            System.out.print("Do you want to delete a player? (y/N)");
+//            strAnswer = scanner.nextLine();
+//
+//            // 1st SWITCH
+//            switch (strAnswer){
+//                case "y":
+//                    System.out.println("1. Search player");
+//                    System.out.println("2. Delete last value");
+//                    System.out.print("Choose category: ");
+//                    intAnswer = scanner.nextInt();
+//
+//
+//                    // 2nd SWITCH
+//                    // STACK SEARCH
+//                    switch(intAnswer){
+//                        case 1:
+//                            showPlayers();
+//                            System.out.print("Search by Name: ");
+//                            var searchByName = scanner.nextLine();
+//                            int search = playerList.search(searchByName);
+//                            playerList.remove(search);
+//
+//                            break;
+//
+//                        case 2:
+//                            showMenuItems();
+//                        default:
+//                            System.out.println("Wrong");
+//                    }
+//                    break;
+//                case "N":
+//                    showMenuItems();
+//                default:
+//                    System.out.println("Error");
+//
+//            }
+//        }
     }
 
     void searchPlayer(){
@@ -169,5 +204,38 @@ public class PlayerManagement extends InHouse implements showMenuItems, Line {
         String searchByName = scanner.nextLine();
         int search = playerList.search(searchByName);
         System.out.println(search);
+    }
+}
+
+interface menuCRUD extends Line{
+    Scanner scanner = new Scanner(System.in);
+    PlayerManagement pm = new PlayerManagement();
+    default void menuCRUD(){
+
+        System.out.println("| MENU |");
+        System.out.println("1. Add player");
+        System.out.println("2. Delete player");
+        System.out.println("3. Show players");
+        System.out.println("4. Exit");
+        System.out.print("Choose the category: ");
+
+        int answer = scanner.nextInt();
+        scanner.nextLine();
+        line();
+
+
+        switch (answer) {
+            case 1:
+                pm.addPlayer();
+                break;
+            case 2:
+                pm.deletePlayer();
+                break;
+            case 3:
+                pm.showPlayers();
+                break;
+            default:
+                System.out.println("Wrong");
+        }
     }
 }

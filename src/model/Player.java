@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player extends InHouse {
+    int id;
     String name;
     String lastName;
     String belt;
@@ -13,12 +14,25 @@ public class Player extends InHouse {
 
     }
 
+    //this constructor is for SAVE method in DAO
     public Player(String name, String lastName, String belt, int age) {
-
         this.name = name;
         this.lastName = lastName;
         this.belt = belt;
         this.age = age;
+    }
+
+    // this constructor is for SHOW method
+    public Player(int id, String name, String lastName, String belt, int age) {
+        this.id = id;
+        this.name = name;
+        this.lastName = lastName;
+        this.belt = belt;
+        this.age = age;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {
@@ -56,7 +70,8 @@ public class Player extends InHouse {
     @Override
     public String toString() {
         return "Player{" +
-                "name='" + name + '\'' +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", belt='" + belt + '\'' +
                 ", age=" + age +

@@ -32,20 +32,21 @@ public class playerDAOImpl implements playerDAO {
             ResultSet result = statement.executeQuery(query);
 
             while(result.next()){
+                int id = result.getInt(1);
                 String name = result.getString(2);
                 String lastName = result.getString(3);
                 String belt = result.getString(4);
                 int age = result.getInt(5);
 
                 //присовить новые значения к player
-                var player = new Player(name, lastName, belt, age);
+                var player = new Player(id, name, lastName, belt, age);
 
                 //добавить в лист результаты
                 listPlayers.add(player);
-                for (Player players : listPlayers){
-                    System.out.println(players);
-                }
+
             }
+            for (Player plyrs : listPlayers)
+            System.out.println(plyrs);
         }
 
         catch (SQLException e){
@@ -109,6 +110,14 @@ public class playerDAOImpl implements playerDAO {
 
     @Override
     public void deleteById(int id) throws SQLException {
+        String query = "DELETE FROM players WHERE id = ?";
 
+        try(PreparedStatement statement = connection.prepareStatement(query)){
+            statement.setInt(1, id);
+            statement.executeUpdate();
+        }
+        catch (SQLException e){
+            System.out.println(e);
+        }
     }
 }
