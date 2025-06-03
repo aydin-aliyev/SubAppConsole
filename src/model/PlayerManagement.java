@@ -7,13 +7,19 @@ import model.Line;
 import model.Player;
 import model.showMenuItems;
 
+import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.*;
 
 public class PlayerManagement extends InHouse implements showMenuItems, Line, menuCRUD {
+
+    Player player;
     String answer;
     Stack<Player> playerList = new Stack<>();
     Scanner scanner = new Scanner(System.in);
+
+
 
     // MENU
     @Override
@@ -62,6 +68,8 @@ public class PlayerManagement extends InHouse implements showMenuItems, Line, me
         line();
         menuCRUD();
     }
+
+
 
 
     //ADD PLAYER
@@ -120,8 +128,12 @@ public class PlayerManagement extends InHouse implements showMenuItems, Line, me
 
 
 
+
+
     // DELETE PLAYER - Stack (LIFO)
     void deletePlayer(){
+        Connection connection;
+
         String yN;
         int intAnswer;
 
@@ -135,13 +147,24 @@ public class PlayerManagement extends InHouse implements showMenuItems, Line, me
             intAnswer = scanner.nextInt();
             scanner.nextLine();
 
+
             try{
                 playerDAOImpl playerDAO = new playerDAOImpl(DatabaseConnection.getConnection());
-                playerDAO.deleteById(intAnswer);
-                System.out.println("Player with ID: " + intAnswer  + " was successfully deleted!");
+
+                // boolean to check
+                boolean deleted = playerDAO.deleteById(intAnswer);
+
+                if (deleted) {
+                    System.out.println("Player with ID " + intAnswer + " was successfully deleted!");
+                } else {
+                    System.out.println("No player found with ID " + intAnswer + ".");
+                }
+
+
             }catch (SQLException e){
                 System.out.println("Error");
             }
+            //LOOP for delete
             System.out.println("Do you want to delete a player? (y/N)");
             yN = scanner.nextLine();
             switch (yN){
@@ -150,51 +173,11 @@ public class PlayerManagement extends InHouse implements showMenuItems, Line, me
                     intAnswer = scanner.nextInt();
                     scanner.nextLine();
                 case "N":
+                    // interface - show menu
                    menuCRUD();
 
             }
         }
-
-
-
-//        while(true){
-//            System.out.print("Do you want to delete a player? (y/N)");
-//            strAnswer = scanner.nextLine();
-//
-//            // 1st SWITCH
-//            switch (strAnswer){
-//                case "y":
-//                    System.out.println("1. Search player");
-//                    System.out.println("2. Delete last value");
-//                    System.out.print("Choose category: ");
-//                    intAnswer = scanner.nextInt();
-//
-//
-//                    // 2nd SWITCH
-//                    // STACK SEARCH
-//                    switch(intAnswer){
-//                        case 1:
-//                            showPlayers();
-//                            System.out.print("Search by Name: ");
-//                            var searchByName = scanner.nextLine();
-//                            int search = playerList.search(searchByName);
-//                            playerList.remove(search);
-//
-//                            break;
-//
-//                        case 2:
-//                            showMenuItems();
-//                        default:
-//                            System.out.println("Wrong");
-//                    }
-//                    break;
-//                case "N":
-//                    showMenuItems();
-//                default:
-//                    System.out.println("Error");
-//
-//            }
-//        }
     }
 
     void searchPlayer(){

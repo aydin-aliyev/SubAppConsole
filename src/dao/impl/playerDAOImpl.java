@@ -21,6 +21,8 @@ public class playerDAOImpl implements playerDAO {
 
     @Override
     public List<Player> findAll() {
+        PlayerManagement pm = new PlayerManagement();
+
         //sql запрос
         String query = "SELECT * FROM players";
 
@@ -76,7 +78,7 @@ public class playerDAOImpl implements playerDAO {
 
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0){
-                System.out.println(player.getName() + ", " + player.getLastName() + ", " + player.getBelt() + ", " + player.getAge() + "was added successfully");
+                System.out.println(player.getName() + ", " + player.getLastName() + ", " + player.getBelt() + ", " + player.getAge() + " was added successfully");
             }
         }
         catch (SQLException e){
@@ -109,15 +111,17 @@ public class playerDAOImpl implements playerDAO {
     }
 
     @Override
-    public void deleteById(int id) throws SQLException {
+    public boolean deleteById(int id) throws SQLException {
         String query = "DELETE FROM players WHERE id = ?";
 
         try(PreparedStatement statement = connection.prepareStatement(query)){
             statement.setInt(1, id);
-            statement.executeUpdate();
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
         }
         catch (SQLException e){
-            System.out.println(e);
+            System.out.println("SQL error " + e);
         }
+        return true;
     }
 }

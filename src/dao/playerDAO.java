@@ -12,5 +12,5 @@ public interface playerDAO {
     List<Player> findById(int id) throws SQLException;
     Player save(Player player) throws SQLException;
     void update(Player player) throws SQLException;
-    void deleteById(int id) throws SQLException;
+    boolean deleteById(int id) throws SQLException;
 }
