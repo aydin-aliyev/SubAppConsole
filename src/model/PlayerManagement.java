@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.util.*;
 
 public class PlayerManagement extends InHouse implements showMenuItems, Line, menuCRUD {
+    InHouse inHouse = new InHouse();
 
     Player player;
     String answer;
@@ -25,7 +26,7 @@ public class PlayerManagement extends InHouse implements showMenuItems, Line, me
     @Override
     public void showMenuItems() {
         line();
-        System.out.println("| MENU |");
+        System.out.println("| PLAYER MANAGEMENT |");
         System.out.println("1. Add player");
         System.out.println("2. Delete player");
         System.out.println("3. Update player");
@@ -49,6 +50,9 @@ public class PlayerManagement extends InHouse implements showMenuItems, Line, me
                 break;
             case 4:
                 showPlayers();
+                break;
+            case 5:
+                inHouse.showMenuItems();
                 break;
             default:
                 System.out.println("Wrong");
