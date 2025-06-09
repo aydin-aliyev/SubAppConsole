@@ -1,6 +1,7 @@
 package dao;
 
 import model.Player;
+import model.UpdateClass;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -11,6 +12,6 @@ public interface playerDAO {
     List<Player> findAll() throws SQLException;
     List<Player> findById(int id) throws SQLException;
     Player save(Player player) throws SQLException;
-    void update(Player player) throws SQLException;
+    void update(UpdateClass updateClass) throws SQLException;
     boolean deleteById(int id) throws SQLException;
 }

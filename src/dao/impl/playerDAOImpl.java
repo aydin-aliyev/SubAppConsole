@@ -1,20 +1,22 @@
 package dao.impl;
 
-import dao.DatabaseConnection;
 import dao.playerDAO;
 import model.Player;
 import model.PlayerManagement;
+import model.UpdateClass;
 
-import java.awt.dnd.DropTarget;
-import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class playerDAOImpl implements playerDAO {
+    //  создал класс для того чтобы
+
+
     PlayerManagement playerManagement;
     Connection connection;
-//конструктор с Connection чтобы
+
+    //конструктор с Connection чтобы
     public playerDAOImpl(Connection connection) {
         this.connection = connection;
     }
@@ -30,10 +32,10 @@ public class playerDAOImpl implements playerDAO {
         List<Player> listPlayers = new ArrayList<>();
 
 
-        try(Statement statement = connection.createStatement()) {
+        try (Statement statement = connection.createStatement()) {
             ResultSet result = statement.executeQuery(query);
 
-            while(result.next()){
+            while (result.next()) {
                 int id = result.getInt(1);
                 String name = result.getString(2);
                 String lastName = result.getString(3);
@@ -48,10 +50,8 @@ public class playerDAOImpl implements playerDAO {
 
             }
             for (Player plyrs : listPlayers)
-            System.out.println(plyrs);
-        }
-
-        catch (SQLException e){
+                System.out.println(plyrs);
+        } catch (SQLException e) {
             System.out.println("Failed");
         }
         return listPlayers;
@@ -68,7 +68,7 @@ public class playerDAOImpl implements playerDAO {
         String query = "INSERT INTO players (name, last_name, belt, age) VALUES(?,?,?,?)";
 
         //prepared statement
-        try(PreparedStatement statement = connection.prepareStatement(query)) {
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
 
             statement.setString(1, player.getName());
             statement.setString(2, player.getLastName());
@@ -77,17 +77,15 @@ public class playerDAOImpl implements playerDAO {
 
 
             int rowsInserted = statement.executeUpdate();
-            if (rowsInserted > 0){
+            if (rowsInserted > 0) {
                 System.out.println(player.getName() + ", " + player.getLastName() + ", " + player.getBelt() + ", " + player.getAge() + " was added successfully");
             }
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println("Failed");
             return null;
         }
         return player;
     }
-
 
 
 //            while (resultSet.next()){
@@ -103,12 +101,64 @@ public class playerDAOImpl implements playerDAO {
 //            }
 
 
-
-
     @Override
-    public void update(Player player) throws SQLException {
+    public void update(UpdateClass updateClass) throws SQLException{
+        String query = "UPDATE players SET " + updateClass.getColumnValue() + " = ? WHERE id = ?";
+        try(PreparedStatement statement = connection.prepareStatement(query)){
 
+            statement.setObject(1, updateClass.getValue());
+            statement.setInt(2, updateClass.getId());
+            statement.executeUpdate();
+        } catch (SQLException e){
+            System.out.println(e);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//        String query = "UPDATE players SET" + updateClass.getColValue() + " = ? WHERE id = ?";
+//        try (PreparedStatement statement = connection.prepareStatement(query)) {
+//            statement.setObject(1, updateClass.getValValue());
+//            statement.setInt(2, updateClass.getIdVal());
+//
+//            int rowsAffected = statement.executeUpdate();
+//
+//            //если execute больше нуля значит были изменения
+//            if (rowsAffected > 0){
+//                statement.executeUpdate();
+//            }
+//            else {
+//                System.out.println("null rows affected");
+//            }
+//
+//        } catch (SQLException e) {
+//            System.out.println("Error");
+//        }
     }
+
 
     @Override
     public boolean deleteById(int id) throws SQLException {
