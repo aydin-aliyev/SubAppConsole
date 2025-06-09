@@ -28,8 +28,9 @@ public class PlayerManagement extends InHouse implements showMenuItems, Line, me
         System.out.println("| MENU |");
         System.out.println("1. Add player");
         System.out.println("2. Delete player");
-        System.out.println("3. Show players");
-        System.out.println("4. Exit");
+        System.out.println("3. Update player");
+        System.out.println("4. Show players");
+        System.out.println("5. Exit");
         System.out.print("Choose the category: ");
         int answer = scanner.nextInt();
         scanner.nextLine();
@@ -44,6 +45,9 @@ public class PlayerManagement extends InHouse implements showMenuItems, Line, me
                 deletePlayer();
                 break;
             case 3:
+                updatePlayer();
+                break;
+            case 4:
                 showPlayers();
                 break;
             default:
@@ -180,8 +184,6 @@ public class PlayerManagement extends InHouse implements showMenuItems, Line, me
         }
     }
 
-<<<<<<< Updated upstream
-=======
 
     // UPDATE CLASS
     public UpdateClass updatePlayer() {
@@ -265,8 +267,6 @@ public class PlayerManagement extends InHouse implements showMenuItems, Line, me
 //        }
 
 
-
->>>>>>> Stashed changes
     void searchPlayer(){
         showPlayers();
 
@@ -285,8 +285,9 @@ interface menuCRUD extends Line{
         System.out.println("| MENU |");
         System.out.println("1. Add player");
         System.out.println("2. Delete player");
-        System.out.println("3. Show players");
-        System.out.println("4. Exit");
+        System.out.println("3. Update player");
+        System.out.println("4. Show players");
+        System.out.println("5. Exit");
         System.out.print("Choose the category: ");
 
         int answer = scanner.nextInt();
@@ -302,6 +303,9 @@ interface menuCRUD extends Line{
                 pm.deletePlayer();
                 break;
             case 3:
+                pm.updatePlayer();
+                break;
+            case 4:
                 pm.showPlayers();
                 break;
             default:

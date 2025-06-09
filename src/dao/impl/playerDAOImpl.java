@@ -4,6 +4,7 @@ import dao.DatabaseConnection;
 import dao.playerDAO;
 import model.Player;
 import model.PlayerManagement;
+import model.UpdateClass;
 
 import java.awt.dnd.DropTarget;
 import java.net.URL;
@@ -106,18 +107,15 @@ public class playerDAOImpl implements playerDAO {
 
 
     @Override
-<<<<<<< Updated upstream
-    public void update(Player player) throws SQLException {
 
-=======
-    public void update(UpdateClass updateClass) throws SQLException{
+    public void update(UpdateClass updateClass) throws SQLException {
         String query = "UPDATE players SET " + updateClass.getColumnValue() + " = ? WHERE id = ?";
-        try(PreparedStatement statement = connection.prepareStatement(query)){
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
             //❌ нельзя передавать имена столбцов
             //statement.setString(1, updateClass.getColumnValue());
 
             // Так как были проблемы с setObject, JDBC не понимал setObject, то пошёл таким путём
-            if (updateClass.getColumnValue().equals("age")){
+            if (updateClass.getColumnValue().equals("age")) {
                 // Определяю тип INTEGER если будет колонка age
                 statement.setObject(1, updateClass.getValue(), Types.INTEGER);
             } else {
@@ -126,12 +124,13 @@ public class playerDAOImpl implements playerDAO {
 
             statement.setInt(2, updateClass.getId());
             int rowsAffected = statement.executeUpdate();
-            if (rowsAffected > 0){
+            if (rowsAffected > 0) {
                 System.out.println("Updated successful");
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println(e);
         }
+    }
 
 
 
@@ -177,8 +176,7 @@ public class playerDAOImpl implements playerDAO {
 //        } catch (SQLException e) {
 //            System.out.println("Error");
 //        }
->>>>>>> Stashed changes
-    }
+
 
     @Override
     public boolean deleteById(int id) throws SQLException {
