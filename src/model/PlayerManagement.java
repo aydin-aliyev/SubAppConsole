@@ -180,6 +180,93 @@ public class PlayerManagement extends InHouse implements showMenuItems, Line, me
         }
     }
 
+<<<<<<< Updated upstream
+=======
+
+    // UPDATE CLASS
+    public UpdateClass updatePlayer() {
+        UpdateClass updateClass = new UpdateClass();
+
+        //Get Connection
+        playerDAOImpl playerDAO = new playerDAOImpl(DatabaseConnection.getConnection());
+
+        // CONSOLE MESSAGE
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Do you want to update player? (y/N)");
+        answer = scanner.nextLine();
+        // CHOOSE
+        switch (answer) {
+            case "y":
+                System.out.print("Type the column: ");
+                //updateClass.columnValue = scanner.nextLine();
+                //Этот вариант хороший елси не сработает с конструктором
+                updateClass.setColumnValue(scanner.nextLine());
+
+                System.out.print("Type the value which you want to set: ");
+                //updateClass.value = scanner.nextLine();
+                updateClass.setValue(scanner.nextLine());
+
+                System.out.print("Type the id: ");
+                //updateClass.id = scanner.nextInt();
+                updateClass.setId(scanner.nextInt());
+                scanner.nextLine();
+
+                //обновление значений
+                try{
+                    UpdateClass newUpdate = new UpdateClass(updateClass.getColumnValue(), updateClass.getValue(), updateClass.getId());
+                    playerDAO.update(newUpdate);
+                }catch (SQLException e){
+                    System.out.println(e);
+                }
+
+            case "N":
+                System.out.println("Exiting...");
+                showMenuItems();
+                break;
+            default:
+                System.out.print("Do you want to update player? (y/N)");
+
+
+
+        }
+        // Передать в PlayerDAO
+         return updateClass;
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+//        Scanner scanner = new Scanner(System.in);
+//        System.out.println("Do you want to update a player? (y/N)");
+//        String strAnswer = scanner.nextLine();
+//        switch (strAnswer){
+//            case "y":
+//                playerDAOImpl playerDAO = new playerDAOImpl(DatabaseConnection.getConnection());
+//                System.out.print("Write a column name: ");
+//                updateClass.colValue = scanner.nextLine();
+//                System.out.print("Set a value: ");
+//                updateClass.valValue = scanner.nextLine();
+//                System.out.print("Choose ID: ");
+//                updateClass.idVal = scanner.nextInt();
+//
+//
+//            case "N":
+//            default:
+//        }
+
+
+
+>>>>>>> Stashed changes
     void searchPlayer(){
         showPlayers();
 

@@ -106,8 +106,78 @@ public class playerDAOImpl implements playerDAO {
 
 
     @Override
+<<<<<<< Updated upstream
     public void update(Player player) throws SQLException {
 
+=======
+    public void update(UpdateClass updateClass) throws SQLException{
+        String query = "UPDATE players SET " + updateClass.getColumnValue() + " = ? WHERE id = ?";
+        try(PreparedStatement statement = connection.prepareStatement(query)){
+            //❌ нельзя передавать имена столбцов
+            //statement.setString(1, updateClass.getColumnValue());
+
+            // Так как были проблемы с setObject, JDBC не понимал setObject, то пошёл таким путём
+            if (updateClass.getColumnValue().equals("age")){
+                // Определяю тип INTEGER если будет колонка age
+                statement.setObject(1, updateClass.getValue(), Types.INTEGER);
+            } else {
+                statement.setObject(1, updateClass.getValue(), Types.VARCHAR);
+            }
+
+            statement.setInt(2, updateClass.getId());
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected > 0){
+                System.out.println("Updated successful");
+            }
+        } catch (SQLException e){
+            System.out.println(e);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//        String query = "UPDATE players SET" + updateClass.getColValue() + " = ? WHERE id = ?";
+//        try (PreparedStatement statement = connection.prepareStatement(query)) {
+//            statement.setObject(1, updateClass.getValValue());
+//            statement.setInt(2, updateClass.getIdVal());
+//
+//            int rowsAffected = statement.executeUpdate();
+//
+//            //если execute больше нуля значит были изменения
+//            if (rowsAffected > 0){
+//                statement.executeUpdate();
+//            }
+//            else {
+//                System.out.println("null rows affected");
+//            }
+//
+//        } catch (SQLException e) {
+//            System.out.println("Error");
+//        }
+>>>>>>> Stashed changes
     }
 
     @Override
